@@ -3,3 +3,4 @@ botocore
 deepeval
 pytest
 langchain_aws
+litellm

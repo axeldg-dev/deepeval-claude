@@ -1,18 +1,16 @@
 #!/bin/bash
 
+response=""
+git_diff=""
+git_status=""
+
 read -p "💬 Prompt Claude : " prompt
 
-response=$(echo "$prompt" | claude --dangerously-skip-permissions)
-diff=$(git diff)
+response="Response from claude code : $(echo "$prompt" | claude --dangerously-skip-permissions)"
+git_diff="Git Diff : $(git diff)"
+git_status="Git Status : $(git status --porcelain)"
 
-echo "$response"
+final_response="$response\n\n$git_diff\n\n$git_status"
+echo "$final_response"
 
-if [ -n "$diff" ]; then
-  echo "Changes detected in git repository:"
-  echo "$diff"
-  response="$response\n\nChanges detected in git repository:\n$diff"
-else
-  echo "No changes detected in git repository."
-fi
-
-python main.py "$prompt" "$response"
+python main.py "$prompt" "$final_response"

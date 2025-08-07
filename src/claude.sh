@@ -10,7 +10,7 @@ response="Response from claude code : $(echo "$prompt" | claude --dangerously-sk
 git_diff="Git Diff : $(git diff)"
 git_status="Git Status : $(git status --porcelain)"
 
-final_response="$response\n\n$git_diff\n\n$git_status"
+final_response="$response / $git_diff / $git_status"
 echo "$final_response"
 
 python main.py "$prompt" "$final_response"
